@@ -1,0 +1,738 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      CodeWarrior Arena - Master C Programming Through Space Adventures
+    </title>
+    <meta
+      name="description"
+      content="Join thousands of coders in an epic journey through the galaxy of C programming. Complete missions, conquer challenges, and become a true CodeWarrior!"
+    />
+    <link rel="stylesheet" href="/Home Page/arena-styles.css" />
+    <style>
+      .launch-btn {
+        transition: all 0.3s ease;
+      }
+      
+      .launch-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hero Section with Navigation -->
+    <div class="hero">
+      <div class="hero-container">
+        <video class="background-video" autoplay muted loop playsinline>
+          <source src="/video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        <div class="hero-content">
+          <!-- Navigation Bar -->
+          <nav class="navbar">
+            <div class="navbar-wrapper">
+              <div class="navbar-brand">
+                <div class="navbar-icon">⚔️</div>
+                <span class="navbar-title">CodeWarrior Arena</span>
+              </div>
+              <div class="navbar-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#learning-path" class="nav-link">Learning Path</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="#contact" class="nav-link">Contact Us</a>
+              </div>
+            </div>
+          </nav>
+
+          <!-- Main Content -->
+          <main class="main-content">
+            <!-- Hero Section -->
+            <section id="home" class="hero-section">
+              <h1 class="hero-title">
+                Master C Programming Through
+                <span class="hero-accent"> Space Adventures</span>
+              </h1>
+              <p class="hero-description">
+                Transform your coding journey into an epic space mission. Learn C programming through interactive challenges, compete with fellow programmers, and become a true CodeWarrior!
+              </p>
+              <button class="launch-btn" onclick="startLearningWithVideo()">Start Learning</button>
+            </section>
+
+            <!-- Video/Media Section -->
+            <section class="media-section">
+              <h2 class="section-title">Explore Features</h2>
+              <div class="media-grid">
+                <div class="media-item">
+                  <div class="media-image" style="background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);">
+                    <span style="font-size: 4rem;">⚔️</span>
+                  </div>
+                  <h3 class="media-title">Battle Mode</h3>
+                  <p class="media-description">Compete with other coders in real-time challenges and earn badges</p>
+                </div>
+
+                <div class="media-item">
+                  <div class="media-image" style="background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);">
+                    <span style="font-size: 4rem;">🏆</span>
+                  </div>
+                  <h3 class="media-title">Leaderboards</h3>
+                  <p class="media-description">Track your progress and compete globally with other learners</p>
+                </div>
+
+                <div class="media-item">
+                  <div class="media-image" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                    <span style="font-size: 4rem;">🚀</span>
+                  </div>
+                  <h3 class="media-title">Launch Missions</h3>
+                  <p class="media-description">Take on epic coding challenges and level up your skills</p>
+                </div>
+
+                <div class="media-item">
+                  <div class="media-image" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                    <span style="font-size: 4rem;">📚</span>
+                  </div>
+                  <h3 class="media-title">Learn C</h3>
+                  <p class="media-description">Master C programming from basics to advanced concepts</p>
+                </div>
+
+                <div class="media-item">
+                  <div class="media-image" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                    <span style="font-size: 4rem;">💡</span>
+                  </div>
+                  <h3 class="media-title">Challenges</h3>
+                  <p class="media-description">Solve problems, debug code, and optimize your solutions</p>
+                </div>
+
+                <div class="media-item">
+                  <div class="media-image" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <span style="font-size: 4rem;">🎯</span>
+                  </div>
+                  <h3 class="media-title">Goal Tracking</h3>
+                  <p class="media-description">Set milestones and watch yourself become a true CodeWarrior</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- What is CodeWarrior Arena Section -->
+            <section class="about-section">
+              <h2 class="section-title">What is CodeWarrior Arena?</h2>
+              <p class="section-description">
+                CodeWarrior Arena is an interactive learning platform that teaches C programming through gamification. We transform traditional coding education into an exciting space-themed adventure where every challenge completed brings you closer to mastering one of the world's most powerful programming languages.
+              </p>
+              <div class="about-features">
+                <div class="about-feature">
+                  <span class="about-icon">🎮</span>
+                  <h3>Game-Based Learning</h3>
+                  <p>Practice coding in a fun, engaging environment with instant feedback and rewards.</p>
+                </div>
+                <div class="about-feature">
+                  <span class="about-icon">📈</span>
+                  <h3>Structured Progression</h3>
+                  <p>Follow a carefully designed learning path from beginner to expert level.</p>
+                </div>
+                <div class="about-feature">
+                  <span class="about-icon">👥</span>
+                  <h3>Community Driven</h3>
+                  <p>Learn with thousands of coders, share solutions, and grow together.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Who is this for Section -->
+            <section class="audience-section">
+              <h2 class="section-title">Who is This For?</h2>
+              <div class="audience-cards">
+                <div class="audience-card">
+                  <div class="audience-icon">👨‍🎓</div>
+                  <h3>Beginners</h3>
+                  <p>Just starting to code? CodeWarrior Arena teaches C from the ground up with simple explanations and hands-on practice.</p>
+                </div>
+                <div class="audience-card">
+                  <div class="audience-icon">🎯</div>
+                  <h3>Students</h3>
+                  <p>Studying computer science? Master C programming fundamentals and excel in your coursework.</p>
+                </div>
+                <div class="audience-card">
+                  <div class="audience-icon">💼</div>
+                  <h3>Career Changers</h3>
+                  <p>Want to transition into tech? Build strong programming fundamentals with a clear path to employment.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Key Features Section -->
+            <section class="features-section">
+              <h2 class="section-title">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-card feature-cyan">
+                  <div class="feature-icon">
+                    <div class="feature-emoji">📊</div>
+                  </div>
+                  <h3 class="feature-title">Progressive Levels</h3>
+                  <p class="feature-text">
+                    Start with basic syntax and gradually tackle advanced concepts like pointers, memory management, and data structures.
+                  </p>
+                </div>
+
+                <div class="feature-card feature-red">
+                  <div class="feature-icon">
+                    <div class="feature-emoji">🏆</div>
+                  </div>
+                  <h3 class="feature-title">Earn Achievements</h3>
+                  <p class="feature-text">
+                    Complete challenges to unlock badges, earn stars, and climb the leaderboard. Track your progress visually.
+                  </p>
+                </div>
+
+                <div class="feature-card feature-blue">
+                  <div class="feature-icon">
+                    <div class="feature-emoji">🚀</div>
+                  </div>
+                  <h3 class="feature-title">Community</h3>
+                  <p class="feature-text">
+                    Connect with thousands of learners worldwide. Share solutions, get feedback, and learn from others.
+                  </p>
+                </div>
+
+                <div class="feature-card feature-cyan">
+                  <div class="feature-icon">
+                    <div class="feature-emoji">💡</div>
+                  </div>
+                  <h3 class="feature-title">Instant Feedback</h3>
+                  <p class="feature-text">
+                    Get immediate feedback on your code. Learn from mistakes quickly and improve with detailed explanations.
+                  </p>
+                </div>
+
+                <div class="feature-card feature-red">
+                  <div class="feature-icon">
+                    <div class="feature-emoji">📚</div>
+                  </div>
+                  <h3 class="feature-title">Learning Resources</h3>
+                  <p class="feature-text">
+                    Access tutorials, documentation, and code examples. Learn at your own pace with comprehensive guides.
+                  </p>
+                </div>
+
+                <div class="feature-card feature-blue">
+                  <div class="feature-icon">
+                    <div class="feature-emoji">🎖️</div>
+                  </div>
+                  <h3 class="feature-title">Certifications</h3>
+                  <p class="feature-text">
+                    Earn recognized certificates upon completion. Showcase your skills to employers and the tech community.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <!-- How It Works Section -->
+            <section id="how-it-works" class="how-it-works-section">
+              <h2 class="section-title">How It Works</h2>
+              <div class="steps-container">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <h3 class="step-title">Create an Account</h3>
+                  <p class="step-description">Sign up in seconds and create your CodeWarrior profile.</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <h3 class="step-title">Learn Concepts</h3>
+                  <p class="step-description">Read tutorials and understand C programming fundamentals.</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <h3 class="step-title">Complete Challenges</h3>
+                  <p class="step-description">Write code to solve real programming problems at your level.</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                  <div class="step-number">4</div>
+                  <h3 class="step-title">Earn Rewards</h3>
+                  <p class="step-description">Get feedback, unlock achievements, and advance to new levels.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Learning Path Section -->
+            <section id="learning-path" class="learning-path-section">
+              <h2 class="section-title">Your Learning Journey</h2>
+              <p class="section-description">Master C programming through six carefully designed levels</p>
+              <div class="levels-container">
+                <div class="level-item">
+                  <div class="level-badge beginner">Rookie</div>
+                  <h3>Beginner</h3>
+                  <p>Variables, data types, operators, and control flow</p>
+                </div>
+                <div class="level-item">
+                  <div class="level-badge intermediate">Cadet</div>
+                  <h3>Intermediate</h3>
+                  <p>Functions, arrays, and strings</p>
+                </div>
+                <div class="level-item">
+                  <div class="level-badge intermediate">Soldier</div>
+                  <h3>Upper Intermediate</h3>
+                  <p>Pointers and memory management</p>
+                </div>
+                <div class="level-item">
+                  <div class="level-badge advanced">Commander</div>
+                  <h3>Advanced</h3>
+                  <p>Structures and file handling</p>
+                </div>
+                <div class="level-item">
+                  <div class="level-badge advanced">Elite</div>
+                  <h3>Advanced Plus</h3>
+                  <p>Data structures and algorithms</p>
+                </div>
+                <div class="level-item">
+                  <div class="level-badge expert">Legend</div>
+                  <h3>Expert</h3>
+                  <p>Complex algorithms and optimization</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- What You'll Learn Section -->
+            <section class="skills-section">
+              <h2 class="section-title">What You'll Master</h2>
+              <div class="skills-grid">
+                <div class="skill-category">
+                  <h3>Fundamentals</h3>
+                  <ul class="skill-list">
+                    <li>✓ Variables and data types</li>
+                    <li>✓ Control structures (if, loops)</li>
+                    <li>✓ Functions and scope</li>
+                    <li>✓ Debugging techniques</li>
+                  </ul>
+                </div>
+                <div class="skill-category">
+                  <h3>Intermediate Concepts</h3>
+                  <ul class="skill-list">
+                    <li>✓ Arrays and strings</li>
+                    <li>✓ Pointers and references</li>
+                    <li>✓ Dynamic memory allocation</li>
+                    <li>✓ File I/O operations</li>
+                  </ul>
+                </div>
+                <div class="skill-category">
+                  <h3>Advanced Topics</h3>
+                  <ul class="skill-list">
+                    <li>✓ Data structures</li>
+                    <li>✓ Algorithms and complexity</li>
+                    <li>✓ Recursion and backtracking</li>
+                    <li>✓ System programming basics</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faq" class="faq-section">
+              <h2 class="section-title">Frequently Asked Questions</h2>
+              <div class="faq-container">
+                <div class="faq-item">
+                  <h3 class="faq-question" onclick="toggleFAQ(this)">Do I need prior coding experience?</h3>
+                  <p class="faq-answer">No! CodeWarrior Arena is designed for complete beginners. We start from the very basics and guide you step by step.</p>
+                </div>
+                <div class="faq-item">
+                  <h3 class="faq-question" onclick="toggleFAQ(this)">How long does it take to complete all levels?</h3>
+                  <p class="faq-answer">It depends on your pace! Beginners typically complete the journey in 3-6 months with regular practice (1-2 hours daily).</p>
+                </div>
+                <div class="faq-item">
+                  <h3 class="faq-question" onclick="toggleFAQ(this)">Can I practice at my own pace?</h3>
+                  <p class="faq-answer">Absolutely! There are no time limits or deadlines. Learn whenever and wherever you want, at your own speed.</p>
+                </div>
+                <div class="faq-item">
+                  <h3 class="faq-question" onclick="toggleFAQ(this)">Is CodeWarrior Arena free?</h3>
+                  <p class="faq-answer">Yes, basic access is free! Premium features with advanced challenges and personalized coaching are available for subscribers.</p>
+                </div>
+                <div class="faq-item">
+                  <h3 class="faq-question" onclick="toggleFAQ(this)">How do I get help when I'm stuck?</h3>
+                  <p class="faq-answer">You can use the built-in hints, check solution walkthroughs, ask in the community forum, or use the AI assistant for help.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="cta-section">
+              <h2 class="cta-title">Ready to Become a CodeWarrior?</h2>
+              <p class="cta-description">Join thousands of learners mastering C programming. Start your space adventure today!</p>
+              <button class="launch-btn" onclick="startLearningWithVideo()">Launch Your Mission Now</button>
+            </section>
+          </main>
+        </div>
+
+        <!-- Mentor Button -->
+        <button id="mentorButton" class="mentor-button" onclick="openMentor()" title="Open AI Mentor">
+          <span class="mentor-icon">💬</span>
+          <span class="mentor-text">Mentor</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Website Footer -->
+    <footer class="website-footer">
+      <div class="footer-container">
+        <!-- Main Footer Content -->
+        <div class="footer-main">
+          <!-- Company Info -->
+          <div class="footer-section">
+            <div class="footer-brand">
+              <div class="footer-logo">
+                <span class="footer-icon">⚔️</span>
+                <span class="footer-brand-name">CodeWarrior Arena</span>
+              </div>
+              <p class="footer-tagline">Master C Programming Through Space Adventures</p>
+              <p class="footer-description">
+                Transform your coding journey into an epic space mission. Join thousands of learners mastering C programming through interactive challenges and gamified learning.
+              </p>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="footer-section">
+            <h3 class="footer-heading">Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="#home" onclick="scrollToSection('home')">Home</a></li>
+              <li><a href="#how-it-works" onclick="scrollToSection('how-it-works')">How It Works</a></li>
+              <li><a href="#learning-path" onclick="scrollToSection('learning-path')">Learning Path</a></li>
+              <li><a href="#faq" onclick="scrollToSection('faq')">FAQ</a></li>
+              <li><a href="/Home Page/chatbot.html">AI Mentor</a></li>
+              <li><a href="/Login Module/login.html">Login</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact & Support -->
+          <div id="contact" class="footer-section">
+            <h3 class="footer-heading">Contact & Support</h3>
+            <div class="footer-contact">
+              <div class="contact-item">
+                <span class="contact-icon">📧</span>
+                <div class="contact-info">
+                  <span class="contact-label">Email</span>
+                  <a href="mailto:support@codewarrior-arena.com">support@codewarrior-arena.com</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">💬</span>
+                <div class="contact-info">
+                  <span class="contact-label">Live Chat</span>
+                  <a href="#" onclick="openMentor()">AI Mentor Available 24/7</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">🌐</span>
+                <div class="contact-info">
+                  <span class="contact-label">Community</span>
+                  <a href="#" onclick="alert('Coming Soon!')">Join Our Discord</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">📱</span>
+                <div class="contact-info">
+                  <span class="contact-label">Social Media</span>
+                  <div class="social-links">
+                    <a href="#" onclick="alert('Coming Soon!')" title="Twitter">🐦</a>
+                    <a href="#" onclick="alert('Coming Soon!')" title="GitHub">🐙</a>
+                    <a href="#" onclick="alert('Coming Soon!')" title="LinkedIn">💼</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+          <div class="footer-legal">
+            <div class="legal-links">
+              <a href="#" onclick="showLegalModal('privacy')">Privacy Policy</a>
+              <span class="separator">|</span>
+              <a href="#" onclick="showLegalModal('terms')">Terms of Service</a>
+              <span class="separator">|</span>
+              <a href="#" onclick="showLegalModal('cookies')">Cookie Policy</a>
+              <span class="separator">|</span>
+              <a href="#" onclick="showLegalModal('disclaimer')">Disclaimer</a>
+            </div>
+            <div class="copyright">
+              <p>&copy; 2026 CodeWarrior Arena. All rights reserved.</p>
+              <p class="legal-note">Educational platform for C programming learning. Not affiliated with any specific institution.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Legal Information Modal -->
+    <div id="legalModal" class="legal-modal">
+      <div class="legal-modal-content">
+        <div class="legal-modal-header">
+          <h2 id="legalModalTitle">Legal Information</h2>
+          <button class="legal-modal-close" onclick="closeLegalModal()">&times;</button>
+        </div>
+        <div class="legal-modal-body" id="legalModalBody">
+          <!-- Content will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/Home Page/arena-script.js"></script>
+    <script>
+      // Smooth scrolling for navigation links
+      function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+
+      // Launch mission button handler (kept for compatibility)
+      function launchMission() {
+        startLearningWithVideo();
+      }
+
+      // Play loading animation then navigate to login
+      function startLearningWithVideo(){
+        window.location.href = '/Loading Page Animation/loading_page_animation.html?next=/Login Module/login.html';
+      }
+
+      // Toggle FAQ answers
+      function toggleFAQ(element) {
+        const parent = element.parentElement;
+        const answer = parent.querySelector('.faq-answer');
+        
+        // Close all other FAQs
+        document.querySelectorAll('.faq-item').forEach(item => {
+          if (item !== parent) {
+            item.classList.remove('active');
+          }
+        });
+        
+        // Toggle current FAQ
+        parent.classList.toggle('active');
+      }
+
+      // Mentor button functionality - open shared web chatbot
+      function openMentor() {
+        if (typeof window.openSharedMentorChatbot === 'function') {
+          window.openSharedMentorChatbot();
+          return;
+        }
+        window.open('/Home Page/chatbot.html', 'codewarrior_shared_mentor_chatbot');
+      }
+
+      // Authentication check function
+      function checkAuthAndNavigate(url) {
+        // Check if user is logged in by looking for userId in localStorage
+        const userId = localStorage.getItem('userId');
+        const currentPlayer = localStorage.getItem('currentPlayer');
+        
+        if (userId || currentPlayer) {
+          // User is logged in, allow navigation
+          window.location.href = url;
+        } else {
+          // User is not logged in, show login prompt and redirect to login
+          showLoginPrompt(url);
+        }
+      }
+
+      // Show login prompt with custom styling
+      function showLoginPrompt(intendedUrl) {
+        // Store the intended URL for after login
+        localStorage.setItem('intendedDestination', intendedUrl);
+        
+        // Create and show a styled modal instead of basic alert
+        const modal = document.createElement('div');
+        modal.className = 'auth-modal';
+        modal.innerHTML = `
+          <div class="auth-modal-content">
+            <div class="auth-modal-header">
+              <h2>🔒 Login Required</h2>
+            </div>
+            <div class="auth-modal-body">
+              <p>You need to be logged in to access the learning levels and level map.</p>
+              <p>Join thousands of CodeWarriors on their programming journey!</p>
+            </div>
+            <div class="auth-modal-actions">
+              <button class="auth-btn auth-btn-primary" onclick="goToLogin()">Login Now</button>
+              <button class="auth-btn auth-btn-secondary" onclick="closeAuthModal()">Maybe Later</button>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+        
+        // Auto-focus on login button
+        setTimeout(() => {
+          modal.querySelector('.auth-btn-primary').focus();
+        }, 100);
+      }
+
+      // Navigate to login page
+      function goToLogin() {
+        closeAuthModal();
+        window.location.href = '/Login Module/login.html';
+      }
+
+      // Close authentication modal
+      function closeAuthModal() {
+        const modal = document.querySelector('.auth-modal');
+        if (modal) {
+          modal.remove();
+          document.body.style.overflow = 'auto';
+        }
+      }
+
+      // Check for intended destination after login (for use on login success)
+      function checkIntendedDestination() {
+        const intendedUrl = localStorage.getItem('intendedDestination');
+        if (intendedUrl) {
+          localStorage.removeItem('intendedDestination');
+          window.location.href = intendedUrl;
+        }
+      }
+
+      // Legal Modal Functions
+      function showLegalModal(type) {
+        const modal = document.getElementById('legalModal');
+        const title = document.getElementById('legalModalTitle');
+        const body = document.getElementById('legalModalBody');
+        
+        const legalContent = {
+          privacy: {
+            title: 'Privacy Policy',
+            content: `
+              <h3>Information We Collect</h3>
+              <p>We collect information you provide directly to us, such as when you create an account, complete challenges, or contact us for support.</p>
+              
+              <h3>How We Use Your Information</h3>
+              <ul>
+                <li>To provide and maintain our educational services</li>
+                <li>To track your learning progress and provide personalized recommendations</li>
+                <li>To communicate with you about your account and our services</li>
+                <li>To improve our platform and develop new features</li>
+              </ul>
+              
+              <h3>Information Sharing</h3>
+              <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.</p>
+              
+              <h3>Data Security</h3>
+              <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+              
+              <p><strong>Last updated:</strong> December 2024</p>
+            `
+          },
+          terms: {
+            title: 'Terms of Service',
+            content: `
+              <h3>Acceptance of Terms</h3>
+              <p>By accessing and using CodeWarrior Arena, you accept and agree to be bound by the terms and provision of this agreement.</p>
+              
+              <h3>Use License</h3>
+              <p>Permission is granted to temporarily access CodeWarrior Arena for personal, non-commercial educational use only.</p>
+              
+              <h3>User Accounts</h3>
+              <ul>
+                <li>You are responsible for maintaining the confidentiality of your account</li>
+                <li>You agree to provide accurate and complete information</li>
+                <li>You must be at least 13 years old to create an account</li>
+              </ul>
+              
+              <h3>Prohibited Uses</h3>
+              <p>You may not use our service for any unlawful purpose or to solicit others to perform unlawful acts.</p>
+              
+              <h3>Disclaimer</h3>
+              <p>The materials on CodeWarrior Arena are provided on an 'as is' basis. We make no warranties, expressed or implied.</p>
+              
+              <p><strong>Last updated:</strong> December 2024</p>
+            `
+          },
+          cookies: {
+            title: 'Cookie Policy',
+            content: `
+              <h3>What Are Cookies</h3>
+              <p>Cookies are small text files that are placed on your computer by websites that you visit. They are widely used to make websites work more efficiently.</p>
+              
+              <h3>How We Use Cookies</h3>
+              <ul>
+                <li><strong>Essential Cookies:</strong> Required for the website to function properly</li>
+                <li><strong>Performance Cookies:</strong> Help us understand how visitors interact with our website</li>
+                <li><strong>Functionality Cookies:</strong> Remember your preferences and settings</li>
+                <li><strong>Analytics Cookies:</strong> Help us improve our services by collecting usage data</li>
+              </ul>
+              
+              <h3>Managing Cookies</h3>
+              <p>You can control and/or delete cookies as you wish. You can delete all cookies that are already on your computer and you can set most browsers to prevent them from being placed.</p>
+              
+              <h3>Third-Party Cookies</h3>
+              <p>We may use third-party services that place cookies on your device to help us analyze website usage and improve our services.</p>
+              
+              <p><strong>Last updated:</strong> December 2024</p>
+            `
+          },
+          disclaimer: {
+            title: 'Disclaimer',
+            content: `
+              <h3>Educational Purpose</h3>
+              <p>CodeWarrior Arena is designed for educational purposes only. The content is provided for learning C programming and should not be considered professional advice.</p>
+              
+              <h3>Accuracy of Information</h3>
+              <p>While we strive to provide accurate and up-to-date information, we make no representations or warranties about the completeness, accuracy, or reliability of the content.</p>
+              
+              <h3>External Links</h3>
+              <p>Our website may contain links to external sites. We have no control over the content and nature of these sites and are not responsible for their content.</p>
+              
+              <h3>Limitation of Liability</h3>
+              <p>In no event shall CodeWarrior Arena be liable for any special, direct, indirect, consequential, or incidental damages arising out of or in connection with your use of the website.</p>
+              
+              <h3>Changes to Disclaimer</h3>
+              <p>We reserve the right to modify this disclaimer at any time. Changes will be effective immediately upon posting on the website.</p>
+              
+              <p><strong>Last updated:</strong> December 2024</p>
+            `
+          }
+        };
+        
+        const content = legalContent[type];
+        if (content) {
+          title.textContent = content.title;
+          body.innerHTML = content.content;
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function closeLegalModal() {
+        const modal = document.getElementById('legalModal');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function(event) {
+        const modal = document.getElementById('legalModal');
+        if (event.target === modal) {
+          closeLegalModal();
+        }
+      }
+    </script>
+    <script src="../shared-mentor-launcher.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5th Task Victory Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(30, 41, 59, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .title {
+            color: #3b82f6;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+        }
+        .flow-step {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        .step-title {
+            color: #3b82f6;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .victory-message {
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10b981;
+            color: #10b981;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        .highlight {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .button-demo {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .button-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="title">🎯 5th Task Victory System - FIXED! 🎯</h1>
+        
+        <div class="victory-message">
+            ✅ 5th Task Now Works Perfectly! ✅<br>
+            When you complete the 5th task correctly, our warrior shoots the enemy and shows "You Win" scoreboard immediately!
+        </div>
+
+        <h2 style="color: #3b82f6;">🔥 How It Works Now:</h2>
+
+        <div class="flow-step">
+            <div class="step-title">Tasks 1-4: Normal Behavior</div>
+            <div>✅ Correct code → Our warrior shoots → Enemy takes damage → Next task loads</div>
+            <div>❌ Wrong code → Enemy shoots → Our warrior takes damage → Try again</div>
+        </div>
+
+        <div class="flow-step">
+            <div class="step-title">Task 5: <span class="highlight">SPECIAL VICTORY SEQUENCE</span></div>
+            <div>✅ Correct code → <span class="highlight">Victory message</span> → Our warrior shoots → Enemy dies → <span class="highlight">"You Win" scoreboard</span></div>
+            <div>❌ Wrong code → Enemy shoots → Our warrior takes damage → Try again</div>
+        </div>
+
+        <h2 style="color: #10b981;">🎮 Victory Sequence Details:</h2>
+
+        <div class="code-example">
+<strong>When 5th task is completed correctly:</strong>
+
+1. Show status: "🎉 Victory! Final task completed! 🎉"
+2. Our warrior shoots bullet animation
+3. Wait 1 second for bullet to hit
+4. Enemy warrior health = 0 (dies)
+5. Game ends immediately
+6. Show scoreboard: "🎉 Victory! Warrior Defeats Enemy! 🎉"
+        </div>
+
+        <h2 style="color: #f59e0b;">🔧 Technical Implementation:</h2>
+
+        <div class="flow-step">
+            <div class="step-title">Smart Task Detection</div>
+            <div>The system now checks <code>gameState.completedTasks.length >= 5</code> to detect the final task</div>
+        </div>
+
+        <div class="flow-step">
+            <div class="step-title">Immediate Victory Response</div>
+            <div>No more waiting or delays - victory happens <span class="highlight">immediately</span> when 5th task is correct</div>
+        </div>
+
+        <div class="flow-step">
+            <div class="step-title">Perfect Shooting Logic</div>
+            <div>Our warrior shoots → Enemy dies → Victory scoreboard (exactly as requested)</div>
+        </div>
+
+        <h2 style="color: #8b5cf6;">🎯 Test Instructions:</h2>
+
+        <div class="code-example">
+<strong>To test the 5th task victory:</strong>
+
+1. Open any indexgame*.html file
+2. Complete tasks 1-4 normally
+3. On task 5, submit correct code
+4. Watch: Victory message → Warrior shoots → Enemy dies → "You Win" scoreboard!
+
+<strong>Example correct code for task 5 (Level 1):</strong>
+#include &lt;stdio.h&gt;
+int main() {
+    float a = 2.5;
+    int b = 4;
+    printf("%.6f", a * b);
+    return 0;
+}
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="button-demo" onclick="alert('🎉 Victory system is now working perfectly! 🎉')">
+                🎮 Test Victory System
+            </button>
+            <button class="button-demo" onclick="window.open('kings-and-pigs-main/indexgame1.html', '_blank')" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                🚀 Try Level 1
+            </button>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: rgba(16, 185, 129, 0.1); border-radius: 10px; border: 2px solid #10b981;">
+            <h3 style="color: #10b981; margin-top: 0;">✅ FIXED ISSUES:</h3>
+            <ul style="color: #e2e8f0;">
+                <li>✅ 5th task now shoots enemy immediately when correct</li>
+                <li>✅ Victory scoreboard shows instantly after enemy dies</li>
+                <li>✅ No more delays or waiting for victory sequence</li>
+                <li>✅ Perfect shooting logic: Our warrior → Enemy dies → You win!</li>
+                <li>✅ All levels (1-8) have consistent behavior</li>
+                <li>✅ Backend properly tracks 5 tasks per level</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

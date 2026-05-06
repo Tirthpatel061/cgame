@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Map - Choose Your Level</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            background: black;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* 3D Background - same as index - Copy.html */
+        #background-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #background-3d iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+            transform: scale(1.08);
+            transform-origin: center center;
+        }
+
+        #background-3d::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(3, 7, 18, 0.2) 0%,
+                rgba(3, 7, 18, 0.38) 55%,
+                rgba(2, 6, 23, 0.52) 100%
+            );
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        /* Level Map Container */
+        .level-map-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            z-index: 1;
+            padding-top: 100px;
+            padding-bottom: 20px;
+            box-sizing: border-box;
+        }
+        
+        /* Title */
+        .map-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 255, 255, 1), 0 0 50px rgba(0, 255, 255, 0.8);
+            margin-bottom: 25px;
+            text-align: center;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(0, 255, 255, 0.6);
+        }
+        
+        @keyframes titleGlow {
+            from {
+                text-shadow: 0 0 30px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 255, 255, 1), 0 0 50px rgba(0, 255, 255, 0.8);
+                border-color: rgba(0, 255, 255, 0.6);
+            }
+            to {
+                text-shadow: 0 0 35px rgba(0, 0, 0, 1), 0 0 45px rgba(255, 255, 255, 1), 0 0 60px rgba(0, 255, 255, 1);
+                border-color: rgba(0, 255, 255, 1);
+            }
+        }
+        
+        /* Player Dashboard - Top Header */
+        .player-dashboard {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid #3498db;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            animation: dashboardSlideDown 0.8s ease-out;
+            height: 70px;
+        }
+        
+        @keyframes dashboardSlideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Left Section - User Info */
+        .dashboard-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        /* Circular User Logo */
+        .user-logo {
+            position: relative;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db 0%, #9b59b6 50%, #e74c3c 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .user-logo:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
+        }
+        
+        .user-logo-level {
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+            line-height: 1;
+        }
+        
+        .user-logo-xp {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+            line-height: 1;
+        }
+        
+        /* Player Name and Basic Info */
+        .player-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        
+        .player-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #3498db;
+            text-shadow: 0 0 8px rgba(52, 152, 219, 0.8);
+        }
+        
+        .player-status {
+            font-size: 13px;
+            color: #bdc3c7;
+        }
+        
+        /* Center Section - Progress Bar */
+        .dashboard-center {
+            flex: 1;
+            max-width: 300px;
+            margin: 0 20px;
+        }
+        
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .progress-label {
+            font-size: 12px;
+            color: #bdc3c7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(127, 140, 141, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db 0%, #2ecc71 50%, #f39c12 100%);
+            border-radius: 4px;
+            transition: width 0.8s ease;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+            animation: progressGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes progressGlow {
+            from {
+                box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(52, 152, 219, 0.8), 0 0 30px rgba(46, 204, 113, 0.4);
+            }
+        }
+        
+        /* Right Section - Hamburger Menu */
+        .dashboard-right {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hamburger-menu {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+        }
+        
+        .hamburger-menu:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background: white;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+            border-radius: 1px;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 10px 0;
+            min-width: 150px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+        }
+        
+        .dropdown-item.home-item:hover {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+        }
+        
+        .dropdown-item.reset-item:hover {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+        }
+        
+        .dropdown-item.logout-item:hover {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+        
+        /* User Details Modal */
+        .user-details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        .user-details-modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 3px solid #3498db;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(52, 152, 219, 0.5);
+            animation: slideUpModal 0.4s ease-out;
+            color: white;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUpModal {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(52, 152, 219, 0.3);
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+            text-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+        }
+        
+        .modal-close {
+            background: transparent;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+            font-size: 20px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background: #e74c3c;
+            color: white;
+            transform: rotate(90deg);
+        }
+        
+        .modal-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            background: rgba(52, 152, 219, 0.2);
+            border-color: #3498db;
+            transform: scale(1.05);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+        
+        .level-value { color: #f39c12; }
+        .xp-value { color: #9b59b6; }
+        .health-value { color: #e74c3c; }
+        .progress-value { color: #2ecc71; }
+        
+        /* Adjust main content to account for header - removed duplicate */
+        
+        /* Top Notification Message */
+        .top-notification {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 0 0 15px 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.5);
+            z-index: 2000;
+            min-width: 400px;
+            max-width: 80%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            animation: slideDownUp 4s ease-in-out forwards;
+        }
+        
+        @keyframes slideDownUp {
+            0% {
+                top: -100px;
+                opacity: 0;
+            }
+            15% {
+                top: 0px;
+                opacity: 1;
+            }
+            85% {
+                top: 0px;
+                opacity: 1;
+            }
+            100% {
+                top: -100px;
+                opacity: 0;
+            }
+        }
+        
+        .notification-icon {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-5px);
+            }
+            60% {
+                transform: translateY(-3px);
+            }
+        }
+        
+        /* Back to Home Button - Removed (now in dropdown) */
+        
+        /* Level Buttons Grid */
+        .level-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            width: 90%;
+            padding: 10px;
+        }
+        
+        /* Level Button - Round/Circular */
+        .level-button {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 40, 0.9) 100%);
+            border: 4px solid #00ffff;
+            border-radius: 50%;
+            width: 160px;
+            height: 160px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            backdrop-filter: blur(5px);
+        }
+        
+        .level-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .level-button:hover {
+            transform: translateY(-10px) scale(1.1);
+            border-color: #00ff00;
+            box-shadow: 0 15px 40px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.5);
+        }
+        
+        .level-button:hover::before {
+            opacity: 1;
+        }
+        
+        .level-button:active {
+            transform: translateY(-5px) scale(1.05);
+        }
+        
+        /* Level Number */
+        .level-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 6px;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 1), 0 0 30px rgba(0, 255, 255, 1);
+            transition: all 0.3s ease;
+        }
+        
+        .level-button:hover .level-number {
+            color: #00ff00;
+            text-shadow: 0 0 25px rgba(0, 0, 0, 1), 0 0 35px rgba(0, 255, 0, 1);
+        }
+        
+        /* Level Label */
+        .level-label {
+            font-size: 12px;
+            color: #ffffff;
+            font-weight: 600;
+            line-height: 1.2;
+            padding: 0 8px;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 1), 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Locked Level Style */
+        .level-button.locked {
+            opacity: 0.7;
+            cursor: not-allowed;
+            border-color: #ff6b6b;
+            background: linear-gradient(135deg, rgba(40, 0, 0, 0.8) 0%, rgba(60, 20, 20, 0.9) 100%);
+        }
+        
+        .level-button.locked:hover {
+            transform: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .level-button.locked .level-number {
+            color: #ff6b6b;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 1), 0 0 20px rgba(255, 107, 107, 0.8);
+        }
+        
+        .lock-icon {
+            font-size: 24px;
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+
+</style>
+</head>
+<body>
+    <!-- 3D Skybox Background -->
+    <div id="background-3d" aria-hidden="true">
+        <iframe
+            src="https://skybox.blockadelabs.com/e/57373bf2a3ca6f80c5d3b5f15f888a96"
+            title="3D background"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- 3D World Background - same as index - Copy.html -->
+    
+
+    <!-- Top Notification Message -->
+    <div class="top-notification" id="topNotification">
+        <span class="notification-icon">🎉</span>
+        Welcome! Start your C programming journey!
+    </div>
+
+    <!-- Level Map Container -->
+    <div class="level-map-container">
+        <!-- Player Dashboard Header -->
+        <div class="player-dashboard">
+            <!-- Left Section - User Info -->
+            <div class="dashboard-left">
+                <div class="user-logo" onclick="showUserDetails()">
+                    <div class="user-logo-level" id="logoLevel">1</div>
+                    <div class="user-logo-xp" id="logoXP">0 XP</div>
+                </div>
+                <div class="player-info">
+                    <div class="player-name" id="playerName">Player</div>
+                    <div class="player-status" id="playerStatus">Ready for Adventure</div>
+                </div>
+            </div>
+            
+            <!-- Center Section - Progress Bar -->
+            <div class="dashboard-center">
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Overall Progress</span>
+                        <span id="progressPercentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Section - Hamburger Menu -->
+            <div class="dashboard-right">
+                <button class="hamburger-menu" id="hamburgerMenu" onclick="toggleDropdown()">
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <button class="dropdown-item home-item" onclick="goHome()">
+                        🏠 Back to Home
+                    </button>
+                    <button class="dropdown-item reset-item" onclick="resetProgress()">
+                        🔄 Reset Progress
+                    </button>
+                    <button class="dropdown-item logout-item" onclick="logout()">
+                        🚪 Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <h1 class="map-title">🎮 Level Map 🎮</h1>
+        
+        <div class="level-buttons-grid">
+            <!-- Level 1 -->
+            <div class="level-button" onclick="goToLevel(1)">
+                <div class="level-number">1</div>
+                <div class="level-label">Level 1<br>Basics of C</div>
+            </div>
+            
+            <!-- Level 2 -->
+            <div class="level-button" onclick="goToLevel(2)">
+                <div class="level-number">2</div>
+                <div class="level-label">Level 2<br>Variables</div>
+            </div>
+            
+            <!-- Level 3 -->
+            <div class="level-button" onclick="goToLevel(3)">
+                <div class="level-number">3</div>
+                <div class="level-label">Level 3<br>Loops</div>
+            </div>
+            
+            <!-- Level 4 -->
+            <div class="level-button" onclick="goToLevel(4)">
+                <div class="level-number">4</div>
+                <div class="level-label">Level 4<br>Functions</div>
+            </div>
+            
+            <!-- Level 5 -->
+            <div class="level-button" onclick="goToLevel(5)">
+                <div class="level-number">5</div>
+                <div class="level-label">Level 5<br>Pointers</div>
+            </div>
+            
+            <!-- Level 6 -->
+            <div class="level-button" onclick="goToLevel(6)">
+                <div class="level-number">6</div>
+                <div class="level-label">Level 6<br>Strings</div>
+            </div>
+            
+            <!-- Level 7 -->
+            <div class="level-button" onclick="goToLevel(7)">
+                <div class="level-number">7</div>
+                <div class="level-label">Level 7<br>Arrays</div>
+            </div>
+            
+            <!-- Level 8 -->
+            <div class="level-button" onclick="goToLevel(8)">
+                <div class="level-number">8</div>
+                <div class="level-label">Level 8<br>Advanced</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div class="user-details-modal" id="userDetailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Player Statistics</div>
+                <button class="modal-close" onclick="closeUserDetails()">×</button>
+            </div>
+            <div class="modal-stats">
+                <div class="stat-card">
+                    <div class="stat-value level-value" id="modalLevel">1</div>
+                    <div class="stat-label">Current Level</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value xp-value" id="modalXP">0</div>
+                    <div class="stat-label">XP Points</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value health-value" id="modalHealth">100</div>
+                    <div class="stat-label">Health Points</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value progress-value" id="modalProgress">0%</div>
+                    <div class="stat-label">Completion</div>
+                </div>
+            </div>
+            <div class="modal-stats">
+                <div class="stat-card">
+                    <div class="stat-value level-value" id="modalTasksCompleted">0</div>
+                    <div class="stat-label">Tasks Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value xp-value" id="modalLevelsUnlocked">1</div>
+                    <div class="stat-label">Levels Unlocked</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script src="../Login Module/database_connector.js"></script>
+    <script>
+        // Level progression system
+        const LEVEL_STORAGE_KEY = 'cGameLevelProgress';
+        const PLAYER_DATA_KEY = 'cGamePlayerData';
+        
+        // Show top notification message every time page loads
+        function showTopNotification() {
+            const notification = document.getElementById('topNotification');
+            notification.style.display = 'block';
+            
+            // Hide the notification after animation completes (4 seconds)
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 4000);
+        }
+        
+        // Toggle dropdown menu
+        function toggleDropdown() {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            
+            hamburgerMenu.classList.toggle('active');
+            dropdownMenu.classList.toggle('show');
+        }
+        
+        // Close dropdown when clicking outside
+        function closeDropdown() {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            
+            hamburgerMenu.classList.remove('active');
+            dropdownMenu.classList.remove('show');
+        }
+        
+        // Get player data from localStorage
+        function getPlayerData() {
+            const saved = localStorage.getItem(PLAYER_DATA_KEY);
+            if (saved) {
+                return JSON.parse(saved);
+            }
+            return {
+                name: 'Player',
+                xp: 0,
+                health: 100,
+                totalTasksCompleted: 0
+            };
+        }
+        
+        // Save player data to localStorage
+        function savePlayerData(data) {
+            localStorage.setItem(PLAYER_DATA_KEY, JSON.stringify(data));
+            
+            // Also save to database if user is logged in
+            const userId = localStorage.getItem('userId');
+            if (userId) {
+                saveProgressToDatabase(userId, null, data);
+            }
+        }
+        
+        // Get level progress from localStorage or database
+        function getLevelProgress() {
+            const saved = localStorage.getItem(LEVEL_STORAGE_KEY);
+            if (saved) {
+                return JSON.parse(saved);
+            }
+            return {
+                unlockedLevels: [1],
+                completedLevels: [],
+                currentLevel: 1
+            };
+        }
+        
+        // Save level progress to localStorage and database
+        function saveLevelProgress(progress) {
+            localStorage.setItem(LEVEL_STORAGE_KEY, JSON.stringify(progress));
+            
+            const userId = localStorage.getItem('userId');
+            if (userId) {
+                saveProgressToDatabase(userId, progress);
+            }
+        }
+        
+        // Load progress from database using the connector
+        function loadProgressFromDatabase(userId) {
+            if (window.dbConnector) {
+                window.dbConnector.loadProgress()
+                    .then(data => {
+                        if (data.success) {
+                            // Update localStorage with database data
+                            if (data.level_progress) {
+                                localStorage.setItem(LEVEL_STORAGE_KEY, JSON.stringify(data.level_progress));
+                            }
+                            if (data.player_data) {
+                                localStorage.setItem(PLAYER_DATA_KEY, JSON.stringify(data.player_data));
+                            }
+                            
+                            // Refresh the dashboard
+                            updatePlayerDashboard();
+                            updateLevelStates();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error loading progress from database:', error);
+                    });
+            }
+        }
+        
+        // Save progress to database using the connector
+        function saveProgressToDatabase(userId, levelProgress = null, playerData = null) {
+            const currentLevelProgress = levelProgress || getLevelProgress();
+            const currentPlayerData = playerData || getPlayerData();
+            
+            if (window.dbConnector) {
+                window.dbConnector.saveProgress(currentLevelProgress, currentPlayerData)
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Progress saved to database successfully');
+                            
+                            // Also update player stats
+                            const completedLevels = currentLevelProgress.completedLevels.length;
+                            const xp = completedLevels * 500;
+                            window.dbConnector.updatePlayerStats(xp, currentPlayerData.health, currentLevelProgress.currentLevel);
+                        } else {
+                            console.error('Failed to save progress to database:', data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error saving progress to database:', error);
+                    });
+            }
+        }
+        
+        // Update player dashboard
+        function updatePlayerDashboard() {
+            const playerData = getPlayerData();
+            const progress = getLevelProgress();
+            
+            // Update player name
+            document.getElementById('playerName').textContent = playerData.name;
+            
+            // Calculate XP based on completed tasks (100 XP per task, 5 tasks per level)
+            const completedLevels = progress.completedLevels.length;
+            const totalXP = completedLevels * 500; // 5 tasks × 100 XP per task
+            
+            // Update circular logo
+            document.getElementById('logoLevel').textContent = progress.currentLevel;
+            document.getElementById('logoXP').textContent = totalXP + ' XP';
+            
+            // Update progress bar
+            const totalLevels = 8;
+            const progressPercentage = Math.round((completedLevels / totalLevels) * 100);
+            document.getElementById('progressPercentage').textContent = progressPercentage + '%';
+            document.getElementById('progressFill').style.width = progressPercentage + '%';
+            
+            // Update player status
+            const statusElement = document.getElementById('playerStatus');
+            if (completedLevels === 0) {
+                statusElement.textContent = 'Ready for Adventure';
+            } else if (completedLevels === 8) {
+                statusElement.textContent = 'C Programming Master!';
+            } else {
+                statusElement.textContent = `Level ${progress.currentLevel} Warrior`;
+            }
+            
+            // Update player data in localStorage
+            playerData.xp = totalXP;
+            playerData.totalTasksCompleted = completedLevels * 5;
+            savePlayerData(playerData);
+        }
+        
+        // Show user details modal
+        function showUserDetails() {
+            const playerData = getPlayerData();
+            const progress = getLevelProgress();
+            const completedLevels = progress.completedLevels.length;
+            const totalXP = completedLevels * 500;
+            const progressPercentage = Math.round((completedLevels / 8) * 100);
+            
+            // Update modal content
+            document.getElementById('modalLevel').textContent = progress.currentLevel;
+            document.getElementById('modalXP').textContent = totalXP;
+            document.getElementById('modalHealth').textContent = playerData.health;
+            document.getElementById('modalProgress').textContent = progressPercentage + '%';
+            document.getElementById('modalTasksCompleted').textContent = completedLevels * 5;
+            document.getElementById('modalLevelsUnlocked').textContent = progress.unlockedLevels.length;
+            
+            // Show modal
+            document.getElementById('userDetailsModal').classList.add('show');
+        }
+        
+        // Close user details modal
+        function closeUserDetails() {
+            document.getElementById('userDetailsModal').classList.remove('show');
+        }
+        
+        // Reset progress function
+        function resetProgress() {
+            closeDropdown(); // Close dropdown first
+            
+            if (confirm('Are you sure you want to reset all progress? This will:\n\n• Reset all levels to locked (except Level 1)\n• Clear all completed tasks\n• Reset XP to 0\n• This action cannot be undone!')) {
+                // Clear progress data but keep welcome message as shown
+                localStorage.removeItem(LEVEL_STORAGE_KEY);
+                localStorage.removeItem(PLAYER_DATA_KEY);
+                // Note: We don't remove WELCOME_SHOWN_KEY so it won't show again
+                
+                // Show confirmation
+                alert('Progress has been reset! Reloading the page...');
+                
+                // Reload page to reflect changes
+                location.reload();
+            }
+        }
+        
+        // Logout function
+        function logout() {
+            closeDropdown(); // Close dropdown first
+            
+            if (confirm('Are you sure you want to logout? Your progress will be saved.')) {
+                // Clear any session data but keep progress
+                // You can add additional logout logic here if needed
+                
+                // Redirect to login page
+                window.location.href = '../Login Module/login.html';
+            }
+        }
+        
+        // Navigation function to go back to home page
+        function goHome() {
+            closeDropdown(); // Close dropdown first
+            window.location.href = '../Home Page/arena.html';
+        }
+        
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout? Your progress will be saved.')) {
+                // Clear any session data but keep progress
+                // You can add additional logout logic here if needed
+                
+                // Redirect to login page
+                window.location.href = '../Login Module/login.html';
+            }
+        }
+        
+        // Check if user is logged in and load progress from database
+        function checkLoginStatus() {
+            // Get player name from URL parameters or localStorage
+            const urlParams = new URLSearchParams(window.location.search);
+            const playerName = urlParams.get('player') || localStorage.getItem('currentPlayer');
+            const userId = localStorage.getItem('userId');
+            
+            if (playerName) {
+                const playerData = getPlayerData();
+                playerData.name = playerName;
+                savePlayerData(playerData);
+                localStorage.setItem('currentPlayer', playerName);
+            }
+            
+            // Load progress from database if user is logged in
+            if (userId) {
+                loadProgressFromDatabase(userId);
+            }
+        }
+        
+        // Update level button states based on progress
+        function updateLevelStates() {
+            const progress = getLevelProgress();
+            const levelButtons = document.querySelectorAll('.level-button');
+            
+            levelButtons.forEach((button, index) => {
+                const levelNumber = index + 1;
+                const isUnlocked = progress.unlockedLevels.includes(levelNumber);
+                const isCompleted = progress.completedLevels.includes(levelNumber);
+                
+                if (!isUnlocked) {
+                    // Level is locked
+                    button.classList.add('locked');
+                    button.onclick = null;
+                    
+                    // Add lock icon if not already present
+                    if (!button.querySelector('.lock-icon')) {
+                        const lockIcon = document.createElement('div');
+                        lockIcon.className = 'lock-icon';
+                        lockIcon.innerHTML = '🔒';
+                        button.appendChild(lockIcon);
+                    }
+                } else {
+                    // Level is unlocked
+                    button.classList.remove('locked');
+                    button.onclick = () => goToLevel(levelNumber);
+                    
+                    // Remove lock icon if present
+                    const lockIcon = button.querySelector('.lock-icon');
+                    if (lockIcon) {
+                        lockIcon.remove();
+                    }
+                    
+                    // Add completion indicator if completed
+                    if (isCompleted) {
+                        if (!button.querySelector('.completion-icon')) {
+                            const completionIcon = document.createElement('div');
+                            completionIcon.className = 'completion-icon';
+                            completionIcon.innerHTML = '';
+                            completionIcon.style.cssText = `
+                                position: absolute;
+                                top: 8px;
+                                right: 8px;
+                                font-size: 20px;
+                                color: #ffd700;
+                                font-weight: bold;
+                                text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+                                z-index: 10;
+                            `;
+                            button.appendChild(completionIcon);
+                        }
+                        
+                        // Change border color for completed levels
+                        button.style.borderColor = '#2ecc71';
+                    }
+                }
+            });
+            
+            // Progress message removed - using top notification instead
+        }
+        
+        // Add reset progress button for testing
+        function addResetButton() {
+            // Reset button is now integrated into the header, so this function is no longer needed
+            // Keeping for compatibility but not adding any button
+        }
+        
+        // Navigation function for levels
+        function goToLevel(level) {
+            const progress = getLevelProgress();
+            
+            // Check if level is unlocked
+            if (!progress.unlockedLevels.includes(level)) {
+                alert(`Level ${level} is locked! Complete the previous levels to unlock it.`);
+                return;
+            }
+            
+            // Track level access in session
+            if (window.sessionTracker) {
+                window.sessionTracker.addLevelPlayed(level);
+            }
+            
+            // Navigate to the correct index file based on level
+            switch(level) {
+                case 1:
+                    window.location.href = 'index - Copy.html';
+                    break;
+                case 2:
+                    window.location.href = 'index.html';
+                    break;
+                case 3:
+                    window.location.href = 'index3.html';
+                    break;
+                case 4:
+                    window.location.href = 'index4.html';
+                    break;
+                case 5:
+                    window.location.href = 'index5.html';
+                    break;
+                case 6:
+                    window.location.href = 'index6.html';
+                    break;
+                case 7:
+                    window.location.href = 'index7.html';
+                    break;
+                case 8:
+                    window.location.href = 'index8.html';
+                    break;
+                default:
+                    window.location.href = 'index - Copy.html';
+            }
+        }
+        
+        // Navigation function to go back to home page
+        function goHome() {
+            window.location.href = '../Home Page/arena.html';
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+            updatePlayerDashboard();
+            updateLevelStates();
+            addResetButton();
+            showTopNotification(); // Show top notification if first time
+            
+            // Close modal when clicking outside
+            document.addEventListener('click', function(event) {
+                const modal = document.getElementById('userDetailsModal');
+                const dropdown = document.getElementById('dropdownMenu');
+                const hamburger = document.getElementById('hamburgerMenu');
+                
+                // Close user details modal
+                if (event.target === modal) {
+                    closeUserDetails();
+                }
+                
+                // Close dropdown menu when clicking outside
+                if (!dropdown.contains(event.target) && !hamburger.contains(event.target)) {
+                    closeDropdown();
+                }
+            });
+        });
+    </script>
+    <script src="../shared-mentor-launcher.js"></script>
+</body>
+</html>
+
+
+
+
+
+

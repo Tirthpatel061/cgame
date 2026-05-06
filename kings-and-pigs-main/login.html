@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+    <script src="login.js"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
+</head>
+<body>
+    <div id="background">
+        <video autoplay muted loop id="bgVideo">
+            <source src="img/among_us_background.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+    <div class="box">
+        <span class="borderLine"></span>
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <h2>SIGN IN</h2>
+            <div class="inputBox">
+                <input type="text" name="mail" required="required">
+                <span>username</span>
+                <i></i>
+            </div>
+            <div class="inputBox">
+                <input type="password" name="pass" required="required">
+                <span>password</span>
+                <i></i>
+            </div>
+            <div class="links">
+                <a href="forgotpass.php">Forgot password?</a>
+                <a href="sign-up.html">Sign up</a>
+            </div>
+            <input type="submit" name="submit" value="Login">
+        </form>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>

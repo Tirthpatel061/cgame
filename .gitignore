@@ -1,0 +1,18 @@
+*.env
+__pycache__/
+*.pyc
+*.pyo
+*.exe
+*.out
+*.class
+*.dll
+*.so
+*.tmp
+temp_code.cpp
+temp_program.exe
+test_battle.exe
+test_compile.exe
+test_output.exe
+battle_program.exe
+mentor_memory.json
+Login Module/user_store.json

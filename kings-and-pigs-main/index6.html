@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Game with 3D Background</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+        background: transparent;
+      }
+        /* Static Background */
+        #background-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        #background-3d iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+            transform: scale(1.08);
+            transform-origin: center center;
+        }
+
+        #background-3d::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(3, 7, 18, 0.12) 0%, rgba(3, 7, 18, 0.3) 100%);
+            pointer-events: none;
+        }
+        /* Game Canvas */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 150vw;
+            height: 150vh;
+            z-index: 1; /* Keep game on top */
+            display: block;
+  }        
+        /* Home Button */
+        #homeButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        #homeButton:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+        
+        #homeButton:active {
+            transform: translateY(0);
+        }
+  
+  /* Video Modal */
+  #videoModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.98);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  #videoModal.show {
+    display: flex;
+  }
+  #videoContainer {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #tutorialVideo {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    background: transparent;
+  }
+  #closeVideo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s;
+    z-index: 1001;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  #closeVideo:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+  }
+
+</style>
+  </head>
+  <body>
+    <!-- Static Background -->
+    <div id="background-3d" aria-hidden="true">
+        <iframe
+            src="https://skybox.blockadelabs.com/e/57373bf2a3ca6f80c5d3b5f15f888a96"
+            title="3D background"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- 3D World Background -->
+        
+
+    <!-- Game Canvas -->
+    <canvas></canvas>
+    <!-- Home Button -->
+    <button id="homeButton" onclick="window.location.href='map.html'">🏠 Home</button>
+
+    <!-- Video Modal -->
+    <div id="videoModal">
+        <button id="closeVideo">✕ Close</button>
+        <div id="videoContainer">
+            <video id="tutorialVideo" controls muted playsinline preload="auto">
+                <source id="videoSource" src="../level6_tutorial.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Game Scripts -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"
+        integrity="sha512-Mf/xUqfWvDIr+1B6zfnIDIiG7XHzyP/guXUWgV6PgaQoIFeXkJQR5XWh9fqAiCiRCpemabt3naV4jhDWVnuYDQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
+    <script src="js/utils.js"></script>
+    <script src="js/data/collisions.js"></script>
+    <script src="js/classes/CollisionBlock.js"></script>
+    <script src="js/classes/Sprite.js"></script>
+    <script src="js/classes/Player.js"></script>
+    <script src="js/classes/player2.js"></script>
+    <script src="js/classes/classes.js"></script>
+    <script src="js/eventListeners.js"></script>
+    <script src="index6.js"></script>
+    <script src="js2/classses.js"></script>
+
+    <script>
+        const videoModal = document.getElementById('videoModal');
+        const tutorialVideo = document.getElementById('tutorialVideo');
+        const closeVideoBtn = document.getElementById('closeVideo');
+
+        function showTutorialVideo() {
+            // Detect if running through server or directly
+            const isServerMode = window.location.protocol === 'http:' && 
+                                 (window.location.hostname === 'localhost' || 
+                                  window.location.hostname === '127.0.0.1');
+            
+            // Set the correct video path based on mode
+            const videoSource = document.getElementById('videoSource');
+            if (isServerMode) {
+                // Running through server - use server endpoint
+                videoSource.src = '/tutorial/level6_tutorial.mp4';
+            } else {
+                // Opening file directly - use relative path
+                videoSource.src = '../level6_tutorial.mp4';
+            }
+            
+            // Show modal first
+            videoModal.classList.add('show');
+            tutorialVideo.pause();
+            tutorialVideo.currentTime = 0;
+            tutorialVideo.muted = false;
+            tutorialVideo.load();
+            
+            tutorialVideo.addEventListener('loadeddata', function playWhenReady() {
+                tutorialVideo.removeEventListener('loadeddata', playWhenReady);
+                const playPromise = tutorialVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        setTimeout(() => {
+                            if (tutorialVideo.requestFullscreen) {
+                                tutorialVideo.requestFullscreen().catch(err => console.log(err));
+                            }
+                        }, 500);
+                    }).catch(error => {
+                        tutorialVideo.muted = true;
+                        tutorialVideo.play().catch(e => console.error(e));
+                    });
+                }
+            }, { once: true });
+            
+            setTimeout(() => {
+                if (tutorialVideo.paused && tutorialVideo.readyState >= 2) {
+                    tutorialVideo.play().catch(err => console.log(err));
+                }
+            }, 3000);
+        }
+
+        function closeTutorialVideo() {
+            videoModal.classList.remove('show');
+            tutorialVideo.pause();
+            tutorialVideo.currentTime = 0;
+            if (document.fullscreenElement) document.exitFullscreen();
+        }
+
+        closeVideoBtn.addEventListener('click', closeTutorialVideo);
+        videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeTutorialVideo(); });
+        tutorialVideo.addEventListener('ended', closeTutorialVideo);
+        window.showTutorialVideo = showTutorialVideo;
+    </script>
+
+    <!-- Navigation Button to Game Level -->
+    <script src="../shared-mentor-launcher.js"></script>
+</body>
+</html> 
+
+
+
+
+

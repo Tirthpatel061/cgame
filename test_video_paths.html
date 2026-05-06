@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Path Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        video {
+            width: 100%;
+            max-width: 640px;
+            margin: 10px 0;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Loading Test</h1>
+    
+    <div class="test-section">
+        <h2>Level 1 Tutorial - Relative Path</h2>
+        <div class="info" id="info1"></div>
+        <video id="video1" controls>
+            <source src="level1_tutorial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <div class="test-section">
+        <h2>Level 2 Tutorial - Relative Path</h2>
+        <div class="info" id="info2"></div>
+        <video id="video2" controls>
+            <source src="level2_tutorial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <div class="test-section">
+        <h2>Level 1 Tutorial - Server Path (if running on server)</h2>
+        <div class="info" id="info3"></div>
+        <video id="video3" controls>
+            <source src="/tutorial/level1_tutorial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <div class="test-section">
+        <h2>Level 2 Tutorial - Server Path (if running on server)</h2>
+        <div class="info" id="info4"></div>
+        <video id="video4" controls>
+            <source src="/tutorial/level2_tutorial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        const videos = [
+            { id: 'video1', infoId: 'info1', name: 'Level 1 (Relative)' },
+            { id: 'video2', infoId: 'info2', name: 'Level 2 (Relative)' },
+            { id: 'video3', infoId: 'info3', name: 'Level 1 (Server)' },
+            { id: 'video4', infoId: 'info4', name: 'Level 2 (Server)' }
+        ];
+
+        videos.forEach(({ id, infoId, name }) => {
+            const video = document.getElementById(id);
+            const info = document.getElementById(infoId);
+            const source = video.querySelector('source');
+            
+            info.innerHTML = `<strong>Source:</strong> ${source.src}<br><strong>Status:</strong> Loading...`;
+            
+            video.addEventListener('loadeddata', () => {
+                info.innerHTML = `<strong>Source:</strong> ${source.src}<br><strong>Status:</strong> ✅ Loaded successfully!`;
+                info.style.background = '#c8e6c9';
+            });
+            
+            video.addEventListener('error', (e) => {
+                info.innerHTML = `<strong>Source:</strong> ${source.src}<br><strong>Status:</strong> ❌ Failed to load<br><strong>Error:</strong> ${video.error ? video.error.message : 'Unknown error'}`;
+                info.style.background = '#ffcdd2';
+            });
+        });
+
+        // Display current location info
+        const locationInfo = document.createElement('div');
+        locationInfo.className = 'test-section';
+        locationInfo.innerHTML = `
+            <h2>Current Location Info</h2>
+            <div class="info">
+                <strong>Protocol:</strong> ${window.location.protocol}<br>
+                <strong>Hostname:</strong> ${window.location.hostname}<br>
+                <strong>Port:</strong> ${window.location.port}<br>
+                <strong>Pathname:</strong> ${window.location.pathname}<br>
+                <strong>Full URL:</strong> ${window.location.href}
+            </div>
+        `;
+        document.body.insertBefore(locationInfo, document.body.firstChild);
+    </script>
+</body>
+</html>

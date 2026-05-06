@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeWarrior Mentor</title>
+  <link rel="stylesheet" href="chatbot.css">
+</head>
+<body>
+  <div id="app" class="chat-app">
+    <header class="chat-header">
+      <div class="brand-mark" aria-hidden="true">🛰️</div>
+      <div class="brand-copy">
+        <h1>CodeWarrior Mentor</h1>
+        <p>C Programming Assistant</p>
+      </div>
+      <button id="close-btn" class="icon-btn" title="Close">✕</button>
+    </header>
+
+    <main id="chat-messages" class="chat-body" aria-live="polite"></main>
+
+    <div class="quick-prompts" id="quick-prompts">
+      <button class="prompt-chip" data-prompt="Explain pointers with a simple example.">Pointers</button>
+      <button class="prompt-chip" data-prompt="How do for and while loops differ?">Loops</button>
+      <button class="prompt-chip" data-prompt="Help me debug a compilation error.">Debugging</button>
+    </div>
+
+    <footer class="chat-input-wrap">
+      <textarea id="chat-input" rows="1" placeholder="Ask about C syntax, errors, loops, arrays, pointers..."></textarea>
+      <button id="send-btn" class="send-btn">Send</button>
+    </footer>
+  </div>
+
+  <script src="chatbot.js"></script>
+</body>
+</html>
